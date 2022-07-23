@@ -8,17 +8,8 @@ form.addEventListener('submit', (e)=>{
     console.log(xhr)
     let formdata = new FormData(form);
 
-    xhr.upload.onprogress = function (event) {
-        if (event.total/event.loaded == 1) {
-            progress.value = 1;
-        }
-        else if (event.total/event.loaded > 0/5) {
-            progress.value = 0.7;
-        }
-        else {
-            progress.value = 0.2;
-        }
-        console.log(`${event.loaded} из ${event.total}`);
+    xhr.onprogress = function (event) {
+        progress.value = event.loaded / 1000000;
     }
     xhr.onloadend = function() {
         if (xhr.status == 200) {
@@ -31,27 +22,4 @@ form.addEventListener('submit', (e)=>{
     xhr.send(formdata);
     e.preventDefault();
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
